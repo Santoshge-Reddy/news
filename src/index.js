@@ -1,16 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "bootstrap/dist/css/bootstrap.css";
-
 import "masonry-layout";
+
 import "./links/links.js";
 import "./styles.css";
 
-import logo from "../src/presentation-assets/img/new_logo.png";
-import hipster_white from "../src/presentation-assets/img/hipster_logo_white.png";
+import logo from "../public/presentation-assets/img/new_logo.png";
+import hipster_white from "../public/presentation-assets/img/hipster_logo_white.png";
 
-import lifestyle_8 from "./assets/img/lifestyle-8.jpg";
-import lifestyle_1 from "./assets/img/lifestyle-1.jpg";
+import lifestyle_8 from "../public/assets/img/lifestyle-8.jpg";
+import lifestyle_1 from "../public/assets/img/lifestyle-1.jpg";
+import lifestyle_2 from "../public/assets/img/lifestyle-2.jpg";
+import lifestyle_9 from "../public/assets/img/lifestyle-9.jpg";
+import fashion_1 from "../public/assets/img/fashion-1.jpg";
+import city_1 from "../public/assets/img/city-1.jpg";
+import city_2 from "../public/assets/img/city-2.png";
+import music_3 from "../public/assets/img/music-3.jpg";
+import home_1 from "../public/assets/img/home-1.jpg";
+import bread_1 from "../public/assets/img/beard-1.jpg";
 
 function Logo() {
   return (
@@ -25,16 +33,22 @@ function Logo() {
   );
 }
 
+function Title() {
+  return (
+    <div className="page-description page-description-header">
+      <div className="hipster-container">
+        <img src={hipster_white} alt="hipster" />
+      </div>
+    </div>
+  );
+}
+
 function App() {
   return (
     <div className="wrapper">
       <Logo />
       <div className="container">
-        <div className="page-description page-description-header">
-          <div className="hipster-container">
-            <img src={hipster_white} alt="hipster" />
-          </div>
-        </div>
+        <Title />
 
         <div className="row">
           <Pop1 />
@@ -82,8 +96,14 @@ function Pop2() {
   return (
     <div className="card-box col-md-4 col-sm-6">
       <div className="card">
-        <div className="header">
-          <img src={require("./assets/img/lifestyle-8.jpg")} alt="lifestyle" />
+        <div
+          className="header"
+          style={{
+            backgroundImage: "url(" + lifestyle_8 + ")",
+            backgroundPosition: "center center",
+            backgroundSize: "cover"
+          }}
+        >
           <div className="filter" />
 
           <div className="actions">
@@ -112,7 +132,15 @@ function Pop2() {
 function Pop3() {
   return (
     <div className="card-box col-md-4 col-sm-6">
-      <div className="card" data-background="image" data-src={lifestyle_1}>
+      <div
+        className="card"
+        data-background="image"
+        style={{
+          backgroundImage: "url(" + lifestyle_1 + ")",
+          backgroundPosition: "center center",
+          backgroundSize: "cover"
+        }}
+      >
         <div className="header">
           <div className="category">
             <h6 className="label label-danger">Hipster Tag</h6>
@@ -159,9 +187,14 @@ function Pop5() {
   return (
     <div className="card-box col-md-4 col-sm-6">
       <div className="card">
-        <div className="header">
-          <img src={lifestyle_8} alt="img" />
-
+        <div
+          className="header"
+          style={{
+            backgroundImage: "url(" + bread_1 + ")",
+            backgroundPosition: "center center",
+            backgroundSize: "cover"
+          }}
+        >
           <div className="social-line social-line-visible" data-buttons="4">
             <button className="btn btn-social btn-facebook">
               <i className="fa fa-facebook" />
@@ -198,7 +231,11 @@ function Pop6() {
       <div
         className="card"
         data-background="image"
-        data-src="assets/img/lifestyle-2.jpg"
+        style={{
+          backgroundImage: "url(" + lifestyle_2 + ")",
+          backgroundPosition: "center center",
+          backgroundSize: "cover"
+        }}
       >
         <div className="header">
           <div className="category">
@@ -239,7 +276,11 @@ function Pop7() {
       <div
         className="card card-with-border"
         data-background="image"
-        data-src="assets/img/fashion-1.jpg"
+        style={{
+          backgroundImage: "url(" + fashion_1 + ")",
+          backgroundPosition: "center center",
+          backgroundSize: "cover"
+        }}
       >
         <div className="header" />
 
@@ -251,7 +292,7 @@ function Pop7() {
           </p>
         </div>
         <div className="footer text-center">
-          <a href="#" className="btn btn-danger btn-fill btn-round">
+          <a href="link" className="btn btn-danger btn-fill btn-round">
             Read article
           </a>
         </div>
@@ -267,7 +308,11 @@ function Pop8() {
       <div
         className="card card-just-text card-with-border"
         data-background="image"
-        data-src="assets/img/lifestyle-9.jpg"
+        style={{
+          backgroundImage: "url(" + lifestyle_9 + ")",
+          backgroundPosition: "center center",
+          backgroundSize: "cover"
+        }}
       >
         <div className="content">
           <h4 className="title title-modern">
@@ -322,7 +367,7 @@ function Pop10() {
         <div className="content">
           <h6 className="category">Hot Article</h6>
           <h4 className="title">
-            <a href="#"> Try the new hairstyle from this Barber Shop</a>
+            <a href="link"> Try the new hairstyle from this Barber Shop</a>
           </h4>
           <p className="description">
             When selling products it's always a good idea to go with commanding
@@ -341,7 +386,11 @@ function Pop11() {
       <div
         className="card text-center"
         data-background="image"
-        data-src="assets/img/city-2.png"
+        style={{
+          backgroundImage: "url(" + city_2 + ")",
+          backgroundPosition: "center center",
+          backgroundSize: "cover"
+        }}
       >
         <h4 className="title title-modern">Hipster Vacation</h4>
 
@@ -400,7 +449,11 @@ function Pop13() {
       <div
         className="card card-just-text card-with-border"
         data-background="image"
-        data-src="assets/img/music-3.jpg"
+        style={{
+          backgroundImage: "url(" + music_3 + ")",
+          backgroundPosition: "center center",
+          backgroundSize: "cover"
+        }}
       >
         <div className="content">
           <div className="filter filter-red" />
@@ -461,9 +514,14 @@ function Pop15() {
   return (
     <div className="card-box col-md-4 col-sm-6">
       <div className="card" data-background="color" data-color="black">
-        <div className="header">
-          <img src="assets/img/home-1.jpg" />
-
+        <div
+          className="header"
+          style={{
+            backgroundImage: "url(" + home_1 + ")",
+            backgroundPosition: "center center",
+            backgroundSize: "cover"
+          }}
+        >
           <div className="social-line" data-buttons="2">
             <button className="btn btn-social">
               <i className="fa fa-facebook-square" /> Share
@@ -477,7 +535,7 @@ function Pop15() {
         <div className="content">
           <h6 className="category">Interior Design</h6>
           <h4 className="title">
-            <a href="#">Hipster Apartment sold for $1.2 mil.</a>
+            <a href="link">Hipster Apartment sold for $1.2 mil.</a>
           </h4>
           <p className="description">
             When selling products it's always a good idea to go with commanding
@@ -496,7 +554,11 @@ function Pop16() {
       <div
         className="card text-center"
         data-background="image"
-        data-src="assets/img/city-1.jpg"
+        style={{
+          backgroundImage: "url(" + city_1 + ")",
+          backgroundPosition: "center center",
+          backgroundSize: "cover"
+        }}
       >
         <h4 className="title title-modern">Hipster City</h4>
 
