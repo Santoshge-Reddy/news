@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "masonry-layout";
+import "pixeden-stroke-7-icon";
 
 import "./links/links.js";
 import "./styles.css";
@@ -27,7 +28,7 @@ function Logo() {
         <div className="logo">
           <img src={logo} alt="logo" />
         </div>
-        <div className="brand">Creative Tim</div>
+        <div className="brand">Santosh News</div>
       </div>
     </a>
   );
@@ -43,34 +44,38 @@ function Title() {
   );
 }
 
-function App() {
-  return (
-    <div className="wrapper">
-      <Logo />
-      <div className="container">
-        <Title />
-
-        <div className="row">
-          <Pop1 />
-          <Pop2 />
-          <Pop3 />
-          <Pop4 />
-          <Pop5 />
-          <Pop6 />
-          <Pop7 />
-          <Pop8 />
-          <Pop9 />
-          <Pop10 />
-          <Pop11 />
-          <Pop12 />
-          <Pop13 />
-          <Pop14 />
-          <Pop15 />
-          <Pop16 />
+class App extends React.Component {
+  render() {
+    return (
+      <div className="wrapper">
+        <Logo />
+        <div className="container">
+          <Title />
+          <div
+            className="row"
+            data-masonry='{ "itemSelector": ".card-box", "columnWidth": ".card-box", "transitionDuration": 0 }'
+          >
+            <Pop1 />
+            <Pop2 />
+            <Pop3 />
+            <Pop4 />
+            <Pop5 />
+            <Pop6 />
+            <Pop7 />
+            <Pop8 />
+            <Pop9 />
+            <Pop10 />
+            <Pop11 />
+            <Pop12 />
+            <Pop13 />
+            <Pop14 />
+            <Pop15 />
+            <Pop16 />
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 function Pop1() {

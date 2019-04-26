@@ -6,7 +6,9 @@
   "main": "src/index.js",
   "dependencies": {
     "bootstrap": "4.3.1",
+    "jquery": "3.4.0",
     "masonry-layout": "4.2.2",
+    "pixeden-stroke-7-icon": "1.2.3",
     "react": "16.8.6",
     "react-dom": "16.8.6",
     "react-scripts": "2.1.8"
