@@ -47,6 +47,7 @@ class App extends React.Component {
       sources: this.state.sources
     };
     newsapi.v2.topHeadlines(query).then(data => {
+      console.log(data);
       let news = data.articles.map((article, i) => {
         if (i !== 0 && i % 5 === 0) {
           return <Pop10 key={i} />;
@@ -88,31 +89,31 @@ class App extends React.Component {
     return (
       <div className="wrapper">
         <Logo />
-        {/* <form className="search" action=""> */}
-        <div className="row" id="search">
-          <div className="col-md-4 col-sm-4" />
-          <div className="col-md-4 col-sm-4">
-            <div className="input-group">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Search for..."
-                onChange={this.handleChange}
-              />
-              <span className="input-group-btn">
-                <button
-                  className="btn btn-btn btn-default"
-                  type="button"
-                  onClick={this.searcheverything}
-                >
-                  Go!
-                </button>
-              </span>
+        <form onSubmit={this.searcheverything}>
+          <div className="row" id="search">
+            <div className="col-md-4 col-sm-4" />
+            <div className="col-md-4 col-sm-4">
+              <div className="input-group">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Search for..."
+                  onChange={this.handleChange}
+                />
+                <span className="input-group-btn">
+                  <button
+                    className="btn btn-btn btn-default"
+                    type="button"
+                    onClick={this.searcheverything}
+                  >
+                    Go!
+                  </button>
+                </span>
+              </div>
             </div>
+            <div className="col-md-4 col-sm-4" />
           </div>
-          <div className="col-md-4 col-sm-4" />
-        </div>
-        {/* </form> */}
+        </form>
         <div className="container">
           <Title />
           <Masonry className={"my-gallery-class"}>
