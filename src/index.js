@@ -25,15 +25,6 @@ const Logo = () => {
   );
 };
 
-const Search = () => {
-  return (
-    <form className="search" action="">
-      <input type="search" placeholder="Search here..." required />
-      <button type="submit">Search</button>
-    </form>
-  );
-};
-
 const Title = () => {
   return (
     <div className="page-description page-description-header">
@@ -54,8 +45,11 @@ class App extends React.Component {
       q: "",
       category: "",
       sources: "",
-      className: ""
+      input: "",
+      className: "row"
     };
+    this.searcheverything = this.searcheverything.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -87,14 +81,43 @@ class App extends React.Component {
     });
   }
 
+  handleChange(e) {
+    this.setState({ input: e.target.value });
+  }
+
+  searcheverything(e) {
+    e.preventDefault();
+    if (this.state.input) {
+      const query = {
+        q: this.state.input
+      };
+      newsapi.v2.everything(query).then(data => {
+        let search = data.articles.map(article => {
+          return <Pop2 key={article.url} article={article} />;
+        });
+        this.setState({ articles: search });
+        this.setState({ className: "masonry-container" });
+      });
+    }
+  }
+
   render() {
     return (
       <div className="wrapper">
         <Logo />
-        <Search />
+        <form className="search" action="">
+          <input
+            type="search"
+            onChange={this.handleChange}
+            placeholder="Search here..."
+            required
+          />
+          <button type="submit" onClick={this.searcheverything}>
+            Search
+          </button>
+        </form>
         <div className="container">
           <Title />
-
           <div className={this.state.className}>{this.state.articles}</div>
         </div>
       </div>
