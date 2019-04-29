@@ -1,12 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
 import "./imports.js";
-
+import { Pop2 } from "./pops/pop2.js";
 import logo from "../public/presentation-assets/img/new_logo.png";
 import hipster_white from "../public/presentation-assets/img/news_white.png";
-
-import { Pop2 } from "./pops/pop2.js";
 
 const NewsAPI = require("newsapi");
 const newsapi = new NewsAPI("bd6c75ce07f548c495161947b459a3de");
@@ -25,6 +22,15 @@ const Logo = () => {
         <div className="brand">News</div>
       </div>
     </a>
+  );
+};
+
+const Search = () => {
+  return (
+    <form className="search" action="">
+      <input type="search" placeholder="Search here..." required />
+      <button type="submit">Search</button>
+    </form>
   );
 };
 
@@ -78,7 +84,6 @@ class App extends React.Component {
 
       this.setState({ articles: news });
       this.setState({ className: "masonry-container" });
-      console.log(news);
     });
   }
 
@@ -86,8 +91,10 @@ class App extends React.Component {
     return (
       <div className="wrapper">
         <Logo />
+        <Search />
         <div className="container">
           <Title />
+
           <div className={this.state.className}>{this.state.articles}</div>
         </div>
       </div>
