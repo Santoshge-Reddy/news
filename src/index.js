@@ -1,55 +1,27 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import Masonry from "react-masonry-component";
 import "./imports.js";
+
 import { Pop1 } from "./pops/pop1.js";
 import { Pop2 } from "./pops/pop2.js";
 import { Pop10 } from "./pops/pop10.js";
-import logo from "../public/presentation-assets/img/new_logo.png";
-import hipster_white from "../public/presentation-assets/img/news_white.png";
+import { Logo } from "./includes/logo.js";
+import { Title } from "./includes/title.js";
 
 const NewsAPI = require("newsapi");
 const newsapi = new NewsAPI("bd6c75ce07f548c495161947b459a3de");
-
-const Logo = () => {
-  return (
-    <a
-      id="logo"
-      rel="noopener noreferrer"
-      target="_blank"
-      href="https://santoshge-reddy.github.io/Santosh/"
-    >
-      <div className="logo-container">
-        <div className="logo">
-          <img src={logo} alt="logo" />
-        </div>
-        <div className="brand">News</div>
-      </div>
-    </a>
-  );
-};
-
-const Title = () => {
-  return (
-    <div className="page-description page-description-header">
-      <div className="hipster-container">
-        <img src={hipster_white} alt="hipster" />
-      </div>
-    </div>
-  );
-};
 
 class App extends React.Component {
   constructor(Props) {
     super(Props);
     this.state = {
       articles: [],
-      country: "us",
+      country: "",
       language: "en",
       q: "",
       category: "",
-      sources: "",
-      input: "",
-      className: "row"
+      sources: ""
     };
     this.searcheverything = this.searcheverything.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -77,9 +49,9 @@ class App extends React.Component {
     newsapi.v2.topHeadlines(query).then(data => {
       let news = data.articles.map((article, i) => {
         if (i !== 0 && i % 5 === 0) {
-          return <Pop10 />;
+          return <Pop10 key={i} />;
         } else if (i === 0) {
-          return <Pop1 />;
+          return <Pop1 key={i} />;
         }
         return <Pop2 key={article.url} article={article} />;
       });
@@ -90,14 +62,17 @@ class App extends React.Component {
   }
 
   handleChange(e) {
-    this.setState({ input: e.target.value });
+    this.setState({ q: e.target.value });
   }
 
   searcheverything(e) {
     e.preventDefault();
-    if (this.state.input) {
+    if (this.state.q) {
       const query = {
-        q: this.state.input
+        language: this.state.language,
+        q: this.state.q,
+        category: this.state.category,
+        sources: this.state.sources
       };
       newsapi.v2.everything(query).then(data => {
         let search = data.articles.map(article => {
@@ -140,7 +115,9 @@ class App extends React.Component {
         {/* </form> */}
         <div className="container">
           <Title />
-          <div className={this.state.className}>{this.state.articles}</div>
+          <Masonry className={"my-gallery-class"}>
+            {this.state.articles}
+          </Masonry>
         </div>
       </div>
     );
