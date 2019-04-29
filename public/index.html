@@ -47,11 +47,20 @@
     <script>
       $(document).ready(function() {
         setInterval(function() {
-          $(".masonry-container").masonry({
-            itemSelector: ".card-box",
-            columnWidth: ".card-box",
-            transitionDuration: 0
-          });
+          var $container = $(".masonry-container");
+          doc_width = $(document).width();
+
+          if (doc_width >= 768) {
+            $container.masonry({
+              itemSelector: ".card-box",
+              columnWidth: ".card-box",
+              transitionDuration: 0
+            });
+          } else {
+            $(".mas-container")
+              .removeClass("mas-container")
+              .addClass("row");
+          }
         }, 3000);
       });
     </script>
