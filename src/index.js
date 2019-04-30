@@ -47,7 +47,6 @@ class App extends React.Component {
       sources: this.state.sources
     };
     newsapi.v2.topHeadlines(query).then(data => {
-      console.log(data);
       let news = data.articles.map((article, i) => {
         if (i !== 0 && i % 5 === 0) {
           return <Pop10 key={i} />;
@@ -68,6 +67,7 @@ class App extends React.Component {
 
   searcheverything(e) {
     e.preventDefault();
+    document.getElementById("search-field").blur();
     if (this.state.q) {
       const query = {
         language: this.state.language,
@@ -96,6 +96,7 @@ class App extends React.Component {
               <div className="input-group">
                 <input
                   type="text"
+                  id="search-field"
                   className="form-control"
                   placeholder="Search for..."
                   onChange={this.handleChange}
