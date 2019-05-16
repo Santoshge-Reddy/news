@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Masonry from "react-masonry-component";
-// import request from "superagent";
+
 import "./imports.js";
 
 import Pop1 from "./pops/pop1.js";
@@ -9,6 +9,8 @@ import Pop2 from "./pops/pop2.js";
 import Pop10 from "./pops/pop10.js";
 import Logo from "./includes/logo.js";
 import Title from "./includes/title.js";
+import Messenger from "./bot/messenger.js";
+import pop1 from "./pops/pop1.js";
 
 const NewsAPI = require("newsapi");
 const newsapi = new NewsAPI("bd6c75ce07f548c495161947b459a3de");
@@ -23,47 +25,63 @@ class App extends React.Component {
       q: "",
       category: "",
       sources: "",
-      page: 1
+      searchtype: "", //everything or topHeadlines
+      page: 1,
+      isloading: true
     };
+
     this.searcheverything = this.searcheverything.bind(this);
     this.handleChange = this.handleChange.bind(this);
-
-    // Binds our scroll event handler
-    window.onscroll = () => {
-      const {
-        loadArticles,
-        state: { error, isLoading, hasMore }
-      } = this;
-
-      // Bails early if:
-      // * there's an error
-      // * it's already loading
-      // * there's nothing left to load
-      if (error || isLoading || !hasMore) return;
-
-      // Checks that the page has scrolled to the bottom
-      if (
-        window.innerHeight + document.documentElement.scrollTop ===
-        document.documentElement.offsetHeight
-      ) {
-        loadArticles();
-      }
-    };
+    this.handleScroll = this.handleScroll.bind(this);
   }
+
+  // Binds our scroll event handler
+  handleScroll() {
+    // const {
+    //   loadArticles,
+    //   state: { error, isLoading, hasMore }
+    // } = this;
+
+    //   // Bails early if:
+    //   // * there's an error
+    //   // * it's already loading
+    //   // * there's nothing left to load
+    // if (error || isLoading || !hasMore) return;
+    // console.log("bottom");
+    //   // Checks that the page has scrolled to the bottom
+    // if (
+    //   window.innerHeight + document.documentElement.scrollTop ===
+    //   document.documentElement.offsetHeight
+    // ) {
+    if (this.state.isloading && this.state.page !== 6) {
+      this.setState({ isloading: false });
+      this.loadArticles();
+    }
+    // }
+  }
+
+  // componentWillUnmount() {
+  //   window.removeEventListener("scroll", this.onScroll, false);
+  // }
 
   componentDidMount() {
     // var url = new URL("https://newsapi.org/v2/top-headlines"),
     //   params = {
     //     apiKey: "bd6c75ce07f548c495161947b459a3de",
-    //     country: "in",
+    //     country: "",
+    //    language:"en"
     //     category: "health",
     //     pageSize: 50
     //   };
     // Object.keys(params).forEach(key =>
     //   url.searchParams.append(key, params[key])
     // );
-
+    window.addEventListener("scroll", this.handleScroll);
     this.loadArticles();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll);
   }
 
   // loadArticles = () => {
@@ -116,27 +134,53 @@ class App extends React.Component {
   // };
 
   loadArticles = () => {
-    const query = {
-      language: this.state.language,
-      country: this.state.country,
-      q: this.state.q,
-      category: this.state.category,
-      sources: this.state.sources
-    };
-    newsapi.v2.topHeadlines(query).then(data => {
-      let news = data.articles.map((article, i) => {
-        if (i !== 0 && i % 5 === 0) {
-          return <Pop10 key={i} />;
-        } else if (i === 0) {
-          return <Pop1 key={i} />;
+    if (this.state.q) {
+      const query = {
+        language: this.state.language,
+        q: this.state.q,
+        category: this.state.category,
+        sources: this.state.sources,
+        page: this.state.page
+      };
+      newsapi.v2.everything(query).then(data => {
+        if (data.status === "ok") {
+          let search = data.articles.map(article => {
+            return <Pop2 key={article.url} article={article} />;
+          });
+          var joined = this.state.articles.concat(search);
+          this.setState({
+            articles: joined,
+            searchtype: "everything",
+            isloading: true,
+            page: this.state.page + 1
+          });
         }
-        return <Pop2 key={article.url} article={article} />;
       });
+    } else {
+      const query = {
+        language: this.state.language,
+        country: this.state.country,
+        q: this.state.q,
+        category: this.state.category,
+        sources: this.state.sources,
+        page: this.state.page
+      };
+      newsapi.v2.topHeadlines(query).then(data => {
+        if (data.status === "ok") {
+          let news = data.articles.map(article => {
+            return <Pop2 key={article.url} article={article} />;
+          });
 
-      this.setState({ articles: news });
-      this.setState({ className: "masonry-container" });
-      console.log(news);
-    });
+          var joined = this.state.articles.concat(news);
+          this.setState({
+            articles: joined,
+            searchtype: "topHeadlines",
+            isloading: true,
+            page: this.state.page + 1
+          });
+        }
+      });
+    }
   };
 
   handleChange(e) {
@@ -145,28 +189,26 @@ class App extends React.Component {
 
   searcheverything(e) {
     e.preventDefault();
+    this.setState({
+      articles: [],
+      country: "",
+      language: "en",
+      q: this.state.q,
+      category: "",
+      sources: "",
+      searchtype: "", //everything or topHeadlines
+      page: 1,
+      isloading: true
+    });
     document.getElementById("search-field").blur();
-    if (this.state.q) {
-      const query = {
-        language: this.state.language,
-        q: this.state.q,
-        category: this.state.category,
-        sources: this.state.sources
-      };
-      newsapi.v2.everything(query).then(data => {
-        let search = data.articles.map(article => {
-          return <Pop2 key={article.url} article={article} />;
-        });
-        this.setState({ articles: search });
-        this.setState({ className: "masonry-container" });
-      });
-    }
+    this.loadArticles();
   }
 
   render() {
     return (
       <div className="wrapper">
         <Logo />
+        <Messenger />
         <form onSubmit={this.searcheverything}>
           <div className="row" id="search">
             <div className="col-md-4 col-sm-4" />
