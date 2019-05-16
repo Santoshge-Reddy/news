@@ -9,8 +9,10 @@
     "newsapi": "2.4.0",
     "react": "16.8.6",
     "react-dom": "16.8.6",
+    "react-infinite-scroller": "1.2.4",
     "react-masonry-component": "6.2.1",
-    "react-scripts": "2.1.8"
+    "react-scripts": "2.1.8",
+    "superagent": "5.0.5"
   },
   "devDependencies": {
     "typescript": "3.3.3"

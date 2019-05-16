@@ -1,5 +1,5 @@
 import React from "react";
-const Pop10 = () => {
+export default () => {
   return (
     <div className="card-box col-md-4 col-sm-6">
       <div
@@ -27,5 +27,3 @@ const Pop10 = () => {
     </div>
   );
 };
-
-export { Pop10 };
