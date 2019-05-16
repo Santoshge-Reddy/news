@@ -1,6 +1,5 @@
 import React from "react";
-
-const Pop2 = Props => {
+export default Props => {
   return (
     <div className="card-box col-md-4 col-sm-6">
       <div className="card">
@@ -32,5 +31,3 @@ const Pop2 = Props => {
     </div>
   );
 };
-
-export { Pop2 };

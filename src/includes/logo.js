@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "../../public/presentation-assets/img/new_logo.png";
 
-const Logo = () => {
+export default () => {
   return (
     <a
       id="logo"
@@ -18,5 +18,3 @@ const Logo = () => {
     </a>
   );
 };
-
-export { Logo };
