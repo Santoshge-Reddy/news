@@ -1,5 +1,6 @@
 import React from "react";
-const Pop9 = () => {
+
+export default Props => {
   return (
     <div className="card-box col-md-4 col-sm-6">
       <div
@@ -28,5 +29,3 @@ const Pop9 = () => {
     </div>
   );
 };
-
-export { Pop9 };

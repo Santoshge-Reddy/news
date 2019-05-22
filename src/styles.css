@@ -63,3 +63,11 @@
 .search button:focus {
   outline: 0;
 } */
+
+#input-name {
+  color: black;
+}
+
+#input-password {
+  color: black;
+}

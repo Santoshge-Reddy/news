@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import "./styles.css";
 
 import App from "./App";
 import Navigation from "./includes/navigation";
@@ -21,12 +20,12 @@ class Index extends Component {
     super(Props);
     this.state = {
       authenticated: false
+      // toLocation:
     };
   }
 
   componentDidMount() {
     firebase.auth().onAuthStateChanged(authenticated => {
-      console.log(this.state);
       authenticated
         ? this.setState(() => ({
             authenticated: true
@@ -34,7 +33,6 @@ class Index extends Component {
         : this.setState(() => ({
             authenticated: false
           }));
-      console.log(this.state);
     });
 
     // var user = firebase.auth().currentUser;

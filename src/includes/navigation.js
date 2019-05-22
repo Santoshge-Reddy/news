@@ -32,7 +32,6 @@ class Navigation extends Component {
               </span>
             ) : (
               <span>
-                <NavLink to="/dashboard">Dashboard</NavLink>
                 <NavLink to="/login">Login</NavLink>
                 <NavLink to="/register">Register</NavLink>
               </span>
