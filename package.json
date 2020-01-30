@@ -4,6 +4,9 @@
   "description": "",
   "keywords": [],
   "main": "src/index.js",
+  "engines": {
+    "node": "12.13.0"
+  },
   "dependencies": {
     "@material-ui/core": "4.0.2",
     "bootstrap": "4.3.1",
@@ -28,10 +31,5 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "browserslist": [">0.2%", "not dead", "not ie <= 11", "not op_mini all"]
 }
