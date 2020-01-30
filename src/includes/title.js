@@ -1,5 +1,5 @@
 import React from "react";
-import hipster_white from "../../public/presentation-assets/img/news_white.png";
+import hipster_white from "../public/presentation-assets/img/news_white.png";
 
 export default () => {
   return (

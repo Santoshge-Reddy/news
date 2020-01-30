@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../public/presentation-assets/img/new_logo.png";
+import logo from "../public/presentation-assets/img/new_logo.png";
 
 export default () => {
   return (
