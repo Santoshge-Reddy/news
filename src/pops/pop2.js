@@ -15,7 +15,9 @@ export default Props => {
 
           <div className="actions">
             <button className="btn btn-round btn-fill btn-neutral btn-modern">
-              <a href={Props.article.url}>Read Article</a>
+              <a target="_blank" href={Props.article.url}>
+                Read Article
+              </a>
             </button>
           </div>
         </div>

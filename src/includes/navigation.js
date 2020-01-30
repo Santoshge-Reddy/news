@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 
-// import LogOut from "../admin/logout";
+// import Logo from "./logo";
 import firebase from "../firebase/firebase";
 
 class Navigation extends Component {
@@ -22,22 +22,18 @@ class Navigation extends Component {
   render() {
     return (
       <div>
-        <div>
-          <div>
-            <NavLink to="/">Home</NavLink>
-            {this.props.authenticated ? (
-              <span>
-                <NavLink to="/dashboard">Dashboard</NavLink>
-                <a onClick={this.logout}>Logout</a>
-              </span>
-            ) : (
-              <span>
-                <NavLink to="/login">Login</NavLink>
-                <NavLink to="/register">Register</NavLink>
-              </span>
-            )}
-          </div>
-        </div>
+        <NavLink to="/">Home</NavLink>
+        {this.props.authenticated ? (
+          <span>
+            {/* <NavLink to="/dashboard">Dashboard</NavLink> */}
+            <a onClick={this.logout}>Logout</a>
+          </span>
+        ) : (
+          <span>
+            <NavLink to="/login">Login</NavLink>
+            <NavLink to="/register">Register</NavLink>
+          </span>
+        )}
       </div>
     );
   }

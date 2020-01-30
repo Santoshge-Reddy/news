@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 
-import "../styles.css";
 import firebase from "../firebase/firebase";
-import { Pop5 } from "../pops/pop";
+// import { Pop5 } from "../pops/pop";
 class Register extends Component {
   constructor(Props) {
     super(Props);

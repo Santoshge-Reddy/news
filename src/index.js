@@ -4,6 +4,9 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import App from "./App";
 import Navigation from "./includes/navigation";
+
+import Search from "./components/search";
+
 import Login from "./admin/login";
 import Register from "./admin/register";
 import Admin from "./admin/admin";
@@ -45,7 +48,7 @@ class Index extends Component {
   render() {
     return (
       <Router>
-        <Navigation authenticated={this.state.authenticated} />
+        {/* <Navigation authenticated={this.state.authenticated} /> */}
         <Switch>
           <Route exact path="/" component={App} />
           <Route
@@ -55,6 +58,8 @@ class Index extends Component {
           />
           <Route path="/register" component={Register} />
           <Route path="/logout" component={Logout} />
+          <Route path="/s" component={Search} />
+
           <ProtectedRoute
             authenticated={this.state.authenticated}
             path="/admin"

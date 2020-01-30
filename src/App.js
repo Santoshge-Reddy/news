@@ -1,13 +1,14 @@
 import React from "react";
 // import ReactDOM from "react-dom";
 import Masonry from "react-masonry-component";
-
+import Select from "react-select";
+// import { NavLink } from "react-router-dom";
 import "./imports.js";
 
 import Pop1 from "./pops/pop1.js";
 import Pop2 from "./pops/pop2.js";
 // import Pop10 from "./pops/pop10.js";
-import Logo from "./includes/logo.js";
+// import Logo from "./includes/logo.js";
 import Title from "./includes/title.js";
 import Messenger from "./bot/messenger.js";
 
@@ -18,6 +19,7 @@ const newsapi = new NewsAPI("bd6c75ce07f548c495161947b459a3de");
 class App extends React.Component {
   constructor(Props) {
     super(Props);
+    document.body.style.backgroundColor = "#555";
     this.state = {
       articles: [],
       country: "",
@@ -27,11 +29,13 @@ class App extends React.Component {
       sources: "",
       searchtype: "", //everything or topHeadlines
       page: 1,
-      isloading: true
+      isloading: false,
+      shouldHide: false
     };
 
     this.searcheverything = this.searcheverything.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.onfocus = this.onfocus.bind(this);
   }
 
   // Binds our scroll event handler
@@ -66,7 +70,6 @@ class App extends React.Component {
 
   loadArticles = () => {
     if (this.state.q) {
-      // console.log(this.state);
       const query = {
         language: this.state.language,
         q: this.state.q,
@@ -76,6 +79,7 @@ class App extends React.Component {
       };
       newsapi.v2.everything(query).then(data => {
         if (data.status === "ok") {
+          var page = this.state.page + 1;
           let search = data.articles.map(article => {
             return <Pop2 key={article.url} article={article} />;
           });
@@ -84,7 +88,7 @@ class App extends React.Component {
             articles: joined,
             searchtype: "everything",
             isloading: true,
-            page: this.state.page + 1
+            page: page
           });
         }
       });
@@ -99,6 +103,7 @@ class App extends React.Component {
       };
       newsapi.v2.topHeadlines(query).then(data => {
         if (data.status === "ok") {
+          var page = this.state.page + 1;
           let news = data.articles.map(article => {
             return <Pop2 key={article.url} article={article} />;
           });
@@ -108,7 +113,7 @@ class App extends React.Component {
             articles: joined,
             searchtype: "topHeadlines",
             isloading: true,
-            page: this.state.page + 1
+            page: page
           });
         }
       });
@@ -119,7 +124,15 @@ class App extends React.Component {
     this.setState({ q: e.target.value });
   }
 
+  onfocus() {
+    if (!this.state.shouldHide) {
+      this.setState({ shouldHide: true });
+      document.body.style.backgroundColor = "skyblue";
+    }
+  }
+
   searcheverything(e) {
+    document.body.style.backgroundColor = "#555";
     this.setState({
       articles: [],
       country: "",
@@ -129,7 +142,8 @@ class App extends React.Component {
       sources: "",
       searchtype: "everything", //everything or topHeadlines
       page: 1,
-      isloading: false
+      isloading: false,
+      shouldHide: false
     });
     e.preventDefault();
     document.getElementById("search-field").blur();
@@ -137,37 +151,88 @@ class App extends React.Component {
   }
 
   render() {
+    console.log("rendered");
+
+    const country = [
+      { value: "ca", label: "Canada" },
+      { value: "cn", label: "China" },
+      { value: "in", label: "India" },
+      { value: "ru", label: "Russia" },
+      { value: "sa", label: "South Africa" },
+      { value: "us", label: "United States" }
+    ];
+
+    const category = [
+      { value: "business", label: "business" },
+      { value: "entertainment", label: "entertainment" },
+      { value: "general", label: "general" },
+      { value: "health", label: "health" },
+      { value: "science", label: "science" },
+      { value: "sports", label: "sports" },
+      { value: "technology", label: "technology" }
+    ];
+
     return (
-      <div className="wrapper">
-        <Logo />
+      <div className="wrapper container">
         <Messenger />
         <form onSubmit={this.searcheverything}>
           <div className="row" id="search">
-            <div className="col-md-4 col-sm-4" />
-            <div className="col-md-4 col-sm-4">
-              <div className="input-group">
-                <input
-                  type="text"
-                  id="search-field"
-                  className="form-control"
-                  placeholder="Search for..."
-                  onChange={this.handleChange}
+            <div className="col text-center">
+              <input
+                type="text"
+                id="search-field"
+                className="form-control"
+                placeholder="Search for..."
+                onChange={this.handleChange}
+                onClick={this.onfocus}
+              />
+            </div>
+          </div>
+
+          <div id={this.state.shouldHide ? "" : "hidden"}>
+            <br />
+            <br />
+
+            <div className="row">
+              <div className="col-md-3 col-sm-1 col-xs-1" />
+
+              {/* <div className="col-md-3 col-sm-5 col-xs-5">
+                <Select
+                  options={country}
+                  isSearchable={false}
+                  placeholder="Country"
                 />
-                <span className="input-group-btn">
-                  <button
-                    className="btn btn-btn btn-default"
-                    type="button"
-                    onClick={this.searcheverything}
-                  >
-                    Go!
-                  </button>
-                </span>
+              </div>
+              <div className="col-md-3 col-sm-5 col-xs-5">
+                <Select
+                  options={category}
+                  isSearchable={false}
+                  placeholder="Category"
+                />
+              </div> */}
+
+              <div className="col-md-3 col-sm-1 col-xs-1" />
+            </div>
+
+            <div className="row">
+              <div className="col text-center">
+                <br />
+                <br />
+                <br />
+                <br />
+
+                <button
+                  className="btn btn-primary"
+                  onClick={this.searcheverything}
+                >
+                  Search
+                </button>
               </div>
             </div>
-            <div className="col-md-4 col-sm-4" />
           </div>
         </form>
-        <div className="container">
+
+        <div className="container" id={this.state.shouldHide ? "hidden" : ""}>
           <Title />
           <Masonry className={"my-gallery-class"}>
             {this.state.articles}
